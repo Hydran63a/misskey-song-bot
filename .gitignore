@@ -1,0 +1,18 @@
+# 秘密情報（APIキー・トークン）
+.env
+
+# 実行時に生成されるデータベース
+data/
+*.db
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# エディタ・OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
