@@ -11,7 +11,7 @@
 | ソース | 状況 |
 | --- | --- |
 | YouTube プレイリスト | 対応 |
-| Spotify プレイリスト | 対応予定 |
+| Spotify プレイリスト | 対応 |
 
 `.env` で設定したソースがすべて使われます。
 
@@ -20,6 +20,7 @@
 - Python 3.9 以上
 - Misskey のアクセストークン（「ノートを作成・削除する」権限）
 - YouTube を使う場合: YouTube Data API v3 の API キーとプレイリスト ID
+- Spotify を使う場合: Spotify Premium のアカウントと、自分が所有または共同編集しているプレイリスト
 
 ## セットアップ
 
@@ -44,6 +45,19 @@ python main.py post        # ランダムに1曲選んで投稿
 
 コマンドは失敗すると終了コード 1 を返します。
 
+### Spotify の設定
+
+Spotify の仕様で、プレイリストの曲は「自分が所有または共同編集しているプレイリスト」しか読めません。
+また、開発モードのアプリはアプリ所有者が Premium に加入している必要があります。
+
+1. [Spotify Developer Dashboard](https://developer.spotify.com/dashboard) でアプリを作る
+2. アプリの Redirect URI に `http://127.0.0.1:8888/callback` を登録する
+3. `.env` に `SPOTIFY_CLIENT_ID` と `SPOTIFY_CLIENT_SECRET` を書く
+4. ブラウザを使える PC で `python main.py spotify-auth` を実行してログインする
+5. 表示された `SPOTIFY_REFRESH_TOKEN` と、プレイリストの URL（`SPOTIFY_PLAYLIST_ID`）を `.env` に書く
+
+手順4はサーバーではなく手元の PC で実行し、できた値をサーバーの `.env` に書き写せば大丈夫です。
+
 ### 定期実行の例（cron）
 
 ```cron
@@ -62,6 +76,7 @@ python main.py post        # ランダムに1曲選んで投稿
 | `misskey.py` | Misskey へのノート投稿 |
 | `sources/` | 楽曲の取得元。ソースごとに1ファイル |
 | `sources/youtube.py` | YouTube プレイリストから楽曲を取得 |
+| `sources/spotify.py` | Spotify プレイリストから楽曲を取得 |
 
 YouTube では、動画の説明欄にある `アーティスト:`、`Artist:`、`歌唱:`、`Vocal:` の行からアーティスト名を取り出します。
 

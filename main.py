@@ -4,6 +4,7 @@
     python main.py sync       プレイリスト（YouTube など）と楽曲DBを同期する
     python main.py post       ランダムに1曲選んで Misskey に投稿する
     python main.py test-post  接続確認用のノートを投稿する
+    python main.py spotify-auth  Spotify のリフレッシュトークンを取得する
 """
 
 import argparse
@@ -52,10 +53,17 @@ def cmd_test_post():
     return 0
 
 
+def cmd_spotify_auth():
+    from sources import spotify
+    spotify.authorize()
+    return 0
+
+
 COMMANDS = {
     "sync": cmd_sync,
     "post": cmd_post,
     "test-post": cmd_test_post,
+    "spotify-auth": cmd_spotify_auth,
 }
 
 

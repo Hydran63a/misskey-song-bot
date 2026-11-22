@@ -10,10 +10,10 @@
 
 import logging
 
-from . import youtube
+from . import spotify, youtube
 from .base import Song
 
-SOURCES = [youtube]
+SOURCES = [youtube, spotify]
 
 logger = logging.getLogger(__name__)
 
