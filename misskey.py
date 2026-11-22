@@ -29,9 +29,17 @@ def create_note(text, visibility=MISSKEY_VISIBILITY):
 
 
 def format_song_note(song):
-    """楽曲紹介ノートの本文を作る。"""
+    """楽曲紹介ノートの本文を作る。
+
+    Spotify は曲名にアーティスト名が含まれないので「曲名 / アーティスト」にする。
+    YouTube は動画タイトルにアーティスト名が入っていることが多いので曲名だけにする。
+    """
+    title = song["title"]
+    if song.get("source") == "spotify" and song.get("artist"):
+        title = f"{title} / {song['artist']}"
+
     return (
         "🎵 **本日の楽曲セレクト！**\n\n"
-        f"{song['title']}\n"
+        f"{title}\n"
         f"{song['url']}"
     )
