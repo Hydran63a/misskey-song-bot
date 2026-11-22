@@ -92,3 +92,7 @@ YouTube では、動画の説明欄にある `アーティスト:`、`Artist:`�
 
 YouTube 専用だった旧形式の DB（`video_id` 列）は、初回実行時に自動で新しい形式に移行されます。
 移行前の DB は `data/songs.db.v1.bak` に保存されます。
+
+## ライセンス
+
+[MIT License](LICENSE)
